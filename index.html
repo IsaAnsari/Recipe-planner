@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Planner & Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Recipe Planner</div>
+        <ul class="nav-links">
+            <li>Total Cost: ₹<span id="totalCost">0.00</span></li>
+            <li>Total Calories: <span id="totalCalories">0</span> kcal</li>
+            <li><a id="viewPlanBtn" class="nav-button" href="#">Your Meal Plan</a></li>
+        </ul>
+        <div class="search-container">
+            <input type="text" id="recipeSearchInput" placeholder="Search recipes...">
+        </div>
+        <button id="resetPlannerBtn" class="reset-button">Reset Planner</button>
+    </nav>
+
+    <div class="container">
+        <aside class="recipe-catalog">
+            <h2>Recipe Catalog</h2>
+            <div class="category-filters">
+                <button class="filter-button active" data-category="all">All Recipes</button>
+                <button class="filter-button" data-category="veg">Vegetarian</button>
+                <button class="filter-button" data-category="non-veg">Non-Vegetarian</button>
+            </div>
+            <div id="recipe-list" class="recipe-list-grid">
+            </div>
+        </aside>
+
+        <main class="meal-plan-section" id="meal-plan-section-id">
+            <h2>Your Meal Plan & Shopping List</h2>
+            <button id="downloadPlanBtn" class="download-button">Download Meal Plan</button>
+
+            <div id="planned-recipes" class="planned-recipes-grid">
+            </div>
+
+            <h3>Shopping List Breakdown:</h3>
+            <ul id="shopping-list-details" class="shopping-list-details">
+                <li class="placeholder-text">Add recipes to see your shopping list!</li>
+            </ul>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

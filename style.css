@@ -1,0 +1,529 @@
+html {
+    scroll-behavior: smooth;
+    /* For smooth scrolling when clicking links */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f7fafd;
+    /* Light blue background */
+    color: #333;
+    line-height: 1.6;
+}
+
+.navbar {
+    background-color: #4CAF50;
+    /* Green */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Ensures main navbar items are vertically centered */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    /* Makes navbar stick to the top */
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 1.8em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.nav-links li {
+    /* NEW: Vertically center content within each list item */
+    display: flex;
+    align-items: center;
+    box-sizing: border-box; /* Ensure padding/border is included */
+}
+
+.nav-links a {
+    /* Style for the "Your Meal Plan" link acting as a button */
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    display: inline-block; /* Ensure padding/border applies correctly */
+    box-sizing: border-box; /* Include padding/border in element's total size */
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: white;
+}
+
+/* Search Box Styles */
+.search-container {
+    margin: 0 15px; /* Adjust spacing in navbar */
+}
+
+#recipeSearchInput {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 200px; /* Default width */
+    max-width: 100%;
+}
+
+#recipeSearchInput::placeholder {
+    color: #a0a0a0;
+}
+
+#recipeSearchInput:focus {
+    border-color: #81c784; /* Lighter green on focus */
+    box-shadow: 0 0 0 3px rgba(129, 199, 132, 0.5); /* Green glow */
+    background-color: #ffffff; /* White background on focus */
+}
+
+
+.reset-button {
+    background-color: #f44336;
+    /* Red */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.reset-button:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+}
+
+/* --- Container for side-by-side layout --- */
+.container {
+    display: flex;
+    padding: 20px;
+    gap: 30px;
+    height: calc(100vh - 80px);
+    /* Adjust 80px based on your actual navbar height */
+}
+
+/* --- Recipe Catalog and Meal Plan Sections (Left & Right Sidebars) --- */
+.recipe-catalog,
+.meal-plan-section {
+    flex: 1;
+    /* Both take equal width */
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    /* --- KEY FOR SEPARATE SCROLLBARS --- */
+    max-height: calc(100vh - 130px);
+    /* Adjust based on navbar/padding/buffer */
+    overflow-y: auto;
+    /* Add vertical scrollbar when content overflows */
+}
+
+h2 {
+    text-align: center;
+    color: #4CAF50;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 2em;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: #3f51b5;
+    /* Indigo */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 5px;
+    font-size: 1.5em;
+}
+
+/* --- Category Filter Buttons --- */
+.category-filters {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.filter-button {
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #d0d0d0;
+}
+
+.filter-button.active {
+    background-color: #4CAF50;
+    /* Green */
+    color: white;
+    border-color: #4CAF50;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.recipe-list-grid,
+.planned-recipes-grid {
+    display: grid;
+    /* Use CSS Grid for flexible item layout */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    /* Min width per card */
+    gap: 20px;
+    padding: 10px;
+    border: 1px dashed #e0e0e0;
+    border-radius: 8px;
+    min-height: 150px;
+    /* Ensure some height even if empty */
+}
+
+.recipe-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 0 auto 15px auto;
+    border: 2px solid #4CAF50;
+}
+
+.recipe-card h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 1.3em;
+    border-bottom: none;
+    /* Override general h3 style */
+    padding-bottom: 0;
+}
+
+.recipe-card p {
+    margin: 3px 0;
+    font-size: 0.95em;
+    color: #555;
+}
+
+.recipe-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    text-align: left;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.recipe-card li {
+    margin-bottom: 2px;
+}
+
+.recipe-card .total-cost {
+    font-weight: bold;
+    color: #007bff;
+    /* Blue */
+    font-size: 1.15em;
+    margin-top: 10px;
+}
+
+.recipe-card .total-calories {
+    font-weight: bold;
+    color: #ff9800;
+    /* Orange */
+    font-size: 1.05em;
+    margin-top: 5px;
+}
+
+.recipe-card button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-card button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.recipe-card button.remove-button {
+    background-color: #dc3545;
+    /* Red for remove button */
+}
+
+.recipe-card button.remove-button:hover {
+    background-color: #c82333;
+}
+
+.shopping-list-details {
+    list-style: disc;
+    padding-left: 25px;
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #444;
+}
+
+.shopping-list-details li {
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #eee;
+}
+
+.shopping-list-details li:last-child {
+    border-bottom: none;
+}
+
+.placeholder-text {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 20px;
+    grid-column: 1 / -1;
+    /* Make it span all columns in grid */
+}
+
+/* --- New Download Button Style --- */
+.download-button {
+    background-color: #2196f3;
+    /* Blue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 20px;
+    /* Space it from content below */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: block;
+    /* Make it a block element to take full width */
+    width: fit-content;
+    /* Adjust to content width */
+    margin-left: auto;
+    /* Center or align right */
+    margin-right: auto;
+    /* Center */
+}
+
+.download-button:hover {
+    background-color: #1976d2;
+    transform: translateY(-2px);
+}
+
+
+/* --- Responsive adjustments --- */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        /* Stack sidebars vertically */
+        gap: 20px;
+        padding: 15px;
+        height: auto;
+        /* Allow the entire page to scroll on smaller screens */
+    }
+
+    .recipe-catalog,
+    .meal-plan-section {
+        padding: 20px;
+        /* --- Remove fixed height and separate scrollbar for mobile --- */
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    .navbar {
+        flex-direction: column;
+        /* Stack nav items vertically on smaller screens */
+        align-items: flex-start;
+        padding: 10px 15px;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+        gap: 15px; /* Slightly reduced gap */
+        font-size: 1.1em;
+        width: 100%;
+        /* Ensure links take full width for better tapping */
+        justify-content: space-around;
+        /* Distribute links evenly */
+    }
+
+    .nav-links li {
+        flex-basis: 0;
+        /* Allow flex items to shrink/grow */
+        flex-grow: 1;
+        text-align: center;
+        box-sizing: border-box; /* Ensure padding/border is included */
+        min-width: fit-content; /* Allow content to dictate min-width */
+        white-space: nowrap; /* Prevent text wrapping inside li to keep button intact */
+    }
+    
+    .nav-links a {
+        padding: 8px 12px; /* Slightly reduced padding for buttons/links */
+    }
+
+
+    /* Adjust search input for smaller screens */
+    .search-container {
+        width: 100%;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    #recipeSearchInput {
+        width: 80%; /* Make search input wider on smaller screens */
+        max-width: 300px; /* Limit max width */
+    }
+
+
+    .reset-button {
+        margin-top: 10px;
+        align-self: center; /* Center the reset button horizontally */
+    }
+
+    .recipe-list-grid,
+    .planned-recipes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        /* Slightly smaller cards */
+        gap: 15px;
+    }
+
+    .category-filters {
+        flex-wrap: wrap;
+        /* Allow buttons to wrap on smaller screens */
+        justify-content: center;
+    }
+
+    .download-button {
+        width: 100%;
+        /* Full width on mobile */
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar-brand {
+        font-size: 1.5em;
+    }
+
+    .nav-links {
+        font-size: 0.95em; /* Slightly smaller font for more space */
+        gap: 10px; /* Further reduced gap */
+        flex-wrap: wrap; /* Allow nav links to wrap if needed */
+        justify-content: center; /* Center items if they wrap */
+    }
+
+    .nav-links li {
+        white-space: nowrap; /* Keep text on one line */
+        margin-bottom: 5px; /* Add some space between wrapped items */
+    }
+    
+    .nav-links a {
+        padding: 6px 10px; /* Even smaller padding for very small screens */
+    }
+
+    h2,
+    h3 {
+        font-size: 1.6em;
+    }
+
+    #recipeSearchInput {
+        width: 90%; /* Even wider on very small screens */
+    }
+
+    .recipe-list-grid,
+    .planned-recipes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        /* Even smaller cards */
+        gap: 10px;
+    }
+
+    .recipe-card {
+        padding: 10px;
+    }
+
+    .recipe-card img {
+        height: 120px;
+    }
+
+    .recipe-card h3 {
+        font-size: 1.1em;
+    }
+
+    .recipe-card p,
+    .recipe-card .total-cost,
+    .recipe-card .total-calories {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .nav-links {
+        font-size: 0.9em; /* Smallest font size */
+        gap: 8px; /* Smallest gap */
+    }
+
+    .recipe-list-grid,
+    .planned-recipes-grid {
+        grid-template-columns: 1fr;
+        /* Single column on very small screens */
+    }
+
+    .recipe-card button {
+        font-size: 0.85em;
+        padding: 6px 10px;
+    }
+
+    .shopping-list-details {
+        font-size: 0.95em;
+        padding-left: 20px;
+    }
+}
