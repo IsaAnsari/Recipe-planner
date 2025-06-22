@@ -18,6 +18,14 @@ A dynamic web application designed to help you efficiently plan your meals, esti
 
 ---
 
+## 🚀 Live Demo
+
+Experience the Recipe Planner & Calculator live in action!
+
+➡️ **[View Live Website Here](https://isaansari.github.io/Recipe-planner/)** ⬅️
+
+---
+
 ## 📸 Screenshots
 
 Here are some glimpses of the Recipe Planner & Calculator in action:
